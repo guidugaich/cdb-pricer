@@ -1,0 +1,27 @@
+{
+  "name": "cdb-pricer",
+  "version": "1.0.0",
+  "description": "Ferramenta para precificação de CDB (certificado de depósito bancário) como parte do processo seletivo da Gorila Investimentos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guidugaich/cdb-pricer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guidugaich/cdb-pricer/issues"
+  },
+  "homepage": "https://github.com/guidugaich/cdb-pricer#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
