@@ -6,6 +6,17 @@ function convertYearRateToDaily(yearRate) {
   return parseFloat(dailyRate.toFixed(8))
 }
 
+function checkForValidDateRange(dates, date1, date2) {
+  const datesTime = dates.map(date => date.getTime())
+  const date1Time = new Date(date1).getTime()
+  const date2Time = new Date(date2).getTime()
+
+  if (!datesTime.includes(date1Time) || !datesTime.includes(date2Time)) {
+    return { valid: false, result: 'Intervalo de datas não disponível' }
+  }
+  return { valid: true }
+}
+
 function getCDIHistoryWithRates(CDIHistory) {
   return CDIHistory.map((obj) => {
     return ({
@@ -36,7 +47,15 @@ function getAccumulatedRate(CDIWithDailyRates, cdbRate) {
 
 async function pricing(investmentDate, cdbRate, currentDate) {
   const CDIHistory = await model.getCDIHistory()
-  
+
+  const dateRange = CDIHistory.map(obj => obj.dtDate);
+
+  const dateRangeValidation = checkForValidDateRange(dateRange, investmentDate, currentDate)
+
+  if (!dateRangeValidation.valid) {
+    return { code: 400, message: dateRangeValidation.result }
+  }
+
   const pricingDateRange = CDIHistory.filter((obj) => {
     return (new Date(investmentDate) <= obj.dtDate) &&
     (obj.dtDate < new Date(currentDate));
@@ -44,11 +63,16 @@ async function pricing(investmentDate, cdbRate, currentDate) {
 
   const CDIWithDailyRates = getCDIHistoryWithRates(pricingDateRange);
   
-  const CDIWithAcucmRate = getAccumulatedRate(CDIWithDailyRates, cdbRate)
+  const CDIWithAccumRate = getAccumulatedRate(CDIWithDailyRates, cdbRate)
 
-  return CDIWithAcucmRate.map((obj) => { 
-    return { ...obj, dPrice: obj.dAccumRate.toFixed(8) * 1000 }
+  const result = CDIWithAccumRate.map((obj) => {
+    const date = obj.dtDate.toISOString().slice(0, 10)
+    const unitPrice = parseFloat((obj.dAccumRate.toFixed(8) * 1000).toFixed(2))
+    
+    return { date, unitPrice }
   })
+
+  return { code: 200, result }
 
 }
 
