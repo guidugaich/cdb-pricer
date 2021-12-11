@@ -9,7 +9,7 @@ async function pricing(req, res) {
     return res.status(CDBpricing.code).json({ message: CDBpricing.message })  
   }
   
-  res.status(CDBpricing.code).json(CDBpricing.result)
+  res.status(CDBpricing.code).json({ data: CDBpricing.result })
 }
 
 module.exports = { pricing }
