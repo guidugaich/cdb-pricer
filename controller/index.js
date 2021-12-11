@@ -5,7 +5,11 @@ async function pricing(req, res) {
 
   const CDBpricing = await service.pricing(investmentDate, cdbRate, currentDate)
 
-  res.status(200).json({ CDBpricing })
+  if (CDBpricing.message) {
+    return res.status(CDBpricing.code).json({ message: CDBpricing.message })  
+  }
+  
+  res.status(CDBpricing.code).json(CDBpricing.result)
 }
 
 module.exports = { pricing }
