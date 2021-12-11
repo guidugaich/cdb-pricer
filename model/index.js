@@ -5,7 +5,8 @@ const fs = require('fs').promises
 const CDI_DATA_URL = 'https://gorila-blog.s3-us-west-2.amazonaws.com/CDI_Prices.csv'
 
 function formatDate(date) {
-  return `${date.split('/')[2]}-${date.split('/')[1]}-${date.split('/')[0]}`
+  const formattedDate = `${date.split('/')[2]}-${date.split('/')[1]}-${date.split('/')[0]}`
+  return new Date(formattedDate)
 }
 
 async function getCDIHistory() {
