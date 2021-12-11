@@ -1,18 +1,14 @@
-const app = require('express')()
 const bodyParser = require('body-parser')
 
-const { getCDIHistory } = require('../model')
-
-app.use(bodyParser.json());
-
+const { getCDIHistory } = require('../model');
+const { pricing } = require('../controller')
 const { inputValidation } = require('../middlewares/inputValidation');
 
+const app = require('express')()
+
+app.use(bodyParser.json());
 app.use(inputValidation)
 
-app.get('/pricing', async (req, res) => {
-  const { investmentDate, cdbRate, currentDate } = req.inputs;
-
-  res.status(200).json({ investmentDate, cdbRate, currentDate })
-})
+app.get('/pricing', pricing)
 
 module.exports = app;
