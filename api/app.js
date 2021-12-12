@@ -1,14 +1,12 @@
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const app = require('express')();
 
-const { getCDIHistory } = require('../model');
-const { pricing } = require('../controller')
+const { pricing } = require('../controller');
 const { inputValidation } = require('../middlewares/inputValidation');
 
-const app = require('express')()
-
 app.use(bodyParser.json());
-app.use(inputValidation)
+app.use(inputValidation);
 
-app.get('/pricing', pricing)
+app.get('/pricing', pricing);
 
 module.exports = app;
