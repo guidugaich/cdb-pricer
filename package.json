@@ -4,7 +4,7 @@
   "description": "Ferramenta para precificação de CDB (certificado de depósito bancário) como parte do processo seletivo da Gorila Investimentos",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --runInBand",
     "dev": "nodemon api/server.js",
     "start": "node api/server.js"
   },
@@ -24,12 +24,17 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "jest": "^27.4.4"
   },
   "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "eslint": "^8.4.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.3",
-    "nodemon": "^2.0.15"
+    "mocha": "^9.1.3",
+    "nodemon": "^2.0.15",
+    "sinon": "^12.0.1"
   }
 }

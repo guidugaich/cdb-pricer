@@ -30,19 +30,21 @@ function inputValidation(req, res, next) {
 
   // checks if all fields are sent
   if (!investmentDate || !cdbRate || !currentDate) {
-    return res.status(BAD_REQUEST).json('investmentDate, cdbRate e currentDate são parametros mandatórios');
+    return res
+      .status(BAD_REQUEST)
+      .json({ message: 'investmentDate, cdbRate e currentDate são parametros mandatórios' });
   }
 
   // checks if dates are valid
   const dateValidation = validateDates(investmentDate, currentDate);
   if (!dateValidation.valid) {
-    return res.status(BAD_REQUEST).json(dateValidation.result);
+    return res.status(BAD_REQUEST).json({ message: dateValidation.result });
   }
 
   // checks if rate is valid
   const rateValidation = validateCDBRAte(cdbRate);
   if (!rateValidation.valid) {
-    return res.status(BAD_REQUEST).json(rateValidation.result);
+    return res.status(BAD_REQUEST).json({ message: rateValidation.result });
   }
 
   req.inputs = { ...dateValidation.result, ...rateValidation.result };
