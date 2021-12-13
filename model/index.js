@@ -11,6 +11,7 @@ function formatDate(date) {
 async function getCDIHistory() {
   const { data } = await axios.get(CDI_DATA_URL, { responseType: 'blob' });
 
+  // tranformando o resultado de string para JSON
   const CDIHistoryArray = await csv().fromString(data);
 
   const CDIHistoryArrayParsed = CDIHistoryArray.map((obj) => (

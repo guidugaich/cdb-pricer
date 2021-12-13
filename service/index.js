@@ -7,6 +7,7 @@ function convertYearRateToDaily(yearRate) {
 }
 
 function checkForValidDateRange(dates, date1, date2) {
+  // verifica se as datas do request estão disponíveis nos dados
   const datesTime = dates.map((date) => date.getTime());
   const date1Time = new Date(date1).getTime();
   const date2Time = new Date(date2).getTime();
@@ -18,6 +19,7 @@ function checkForValidDateRange(dates, date1, date2) {
 }
 
 function getCDIHistoryWithRates(CDIHistory) {
+  // adiciona campo com taxa diária á série do CDI
   return CDIHistory.map((obj) => ({
     ...obj,
     dLastTradeDailyRate: convertYearRateToDaily(obj.dLastTradePrice),
@@ -25,6 +27,7 @@ function getCDIHistoryWithRates(CDIHistory) {
 }
 
 function getAccumulatedRate(CDIWithDailyRates, cdbRate) {
+  // recebe a série do CDI com taxas diárias e retorna a série adicionando o campo de taxa acumulada
   const result = CDIWithDailyRates.map((obj, index, array) => {
     const accumRate = array
       .slice(0, index + 1)
@@ -41,6 +44,7 @@ function getAccumulatedRate(CDIWithDailyRates, cdbRate) {
 }
 
 async function pricing(investmentDate, cdbRate, currentDate) {
+  // retorna objeto da precificação
   const CDIHistory = await model.getCDIHistory();
 
   const dateRange = CDIHistory.map((obj) => obj.dtDate);
@@ -60,6 +64,7 @@ async function pricing(investmentDate, cdbRate, currentDate) {
   const CDIWithAccumRate = getAccumulatedRate(CDIWithDailyRates, cdbRate);
 
   const result = CDIWithAccumRate.map((obj) => {
+    // formatando o retorno para o formato solicitado pelo desafio
     const date = obj.dtDate.toISOString().slice(0, 10);
     const unitPrice = parseFloat((obj.dAccumRate.toFixed(8) * 1000).toFixed(2));
 
