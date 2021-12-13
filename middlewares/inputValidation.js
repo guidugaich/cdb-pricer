@@ -1,6 +1,10 @@
 const BAD_REQUEST = 400;
 
 function validateCDBRAte(cdbRate) {
+  if (cdbRate < 0) {
+    return { valid: false, result: 'taxa deve ser positiva' };
+  }
+
   const decimalRegEx = /^(-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/;
 
   if (decimalRegEx.test(cdbRate)) {
