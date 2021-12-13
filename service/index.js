@@ -26,8 +26,6 @@ function getCDIHistoryWithRates(CDIHistory) {
 
 function getAccumulatedRate(CDIWithDailyRates, cdbRate) {
   const result = CDIWithDailyRates.map((obj, index, array) => {
-    // return (accum*(1 + val * (cdbRate / 100))).toFixed(16)
-
     const accumRate = array
       .slice(0, index + 1)
       .reduce((accum, val) => {
