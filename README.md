@@ -15,20 +15,21 @@ https://cdb-pricer.herokuapp.com/pricing?investmentDate=YYYY-MM-DD&cdbRate=XX.XX
 - As datas devem necessariamente ser informadas no formato especificado (YYYY-MM-DD)
 - A taxa do CDB deve ser informada em formato numérico (inteiro ou decimal)
 
-O retorno será um objeto JSON no formato
+O retorno será um objeto JSON no formato abaixo, onde ***unitPrice*** é o resultado da precificação do CDB da data especificada.
 
 ```
 [
   {
-	  "date": "2016-12-26",
+	  "date": "YYYY-MM-DD", // data inicial de investimento
 	  "unitPrice": XX.XX
   },
   {
-	  "date": "2016-12-25",
+	  "date": "YYYY-MM-DD",
 	  "unitPrice": YY.YY
   },
+  ...,
   {
-	  "date": "2016-12-24",
+	  "date": "YYYY-MM-DD", // data final de precificação
 	  "unitPrice": ZZ.ZZ
   }
 ]
