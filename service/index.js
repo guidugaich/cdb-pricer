@@ -6,13 +6,16 @@ function convertYearRateToDaily(yearRate) {
   return parseFloat(dailyRate.toFixed(8));
 }
 
-function checkForValidDateRange(dates, date1, date2) {
+function checkForValidDateRange(dates, startDate, endDate) {
   // verifica se as datas do request estão disponíveis nos dados
   const datesTime = dates.map((date) => date.getTime());
-  const date1Time = new Date(date1).getTime();
-  const date2Time = new Date(date2).getTime();
+  const startDateTime = new Date(startDate).getTime();
+  const endDateTime = new Date(endDate).getTime();
 
-  if (!datesTime.includes(date1Time) || !datesTime.includes(date2Time)) {
+  const minDateRange = datesTime.reduce((acc, val) => Math.min(acc, val));
+  const maxDateRange = datesTime.reduce((acc, val) => Math.max(acc, val));
+
+  if ((startDateTime < minDateRange) || (endDateTime > maxDateRange)) {
     return { valid: false, result: 'Intervalo de datas não disponível' };
   }
   return { valid: true };
