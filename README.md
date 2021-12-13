@@ -3,6 +3,7 @@
 Ferramenta para precificação de CDB (certificado de depósito bancário) como parte do processo seletivo da Gorila Investimentos. O serviço está publicado como um Docker container na plataforma Heroku.
 
 API Publicada: https://cdb-pricer.herokuapp.com/pricing
+
 Aplicação front-end para interação de usuário: https://guidugaich.github.io/cdb-pricer-front
 
 Para rodar a aplicação localmente basta clonar o projeto e rodar `npm start`
